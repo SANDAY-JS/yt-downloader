@@ -7,7 +7,7 @@ def startDownload():
     try:
         ytLink = link.get()
         ytObject = YouTube(ytLink)
-        video = ytObject.streams.get_by_resolution()
+        video = ytObject.streams.get_highest_resolution()
         video.download()
         status=True
     except Exception as e:
