@@ -4,6 +4,8 @@ from pytube import YouTube
 
 def startDownload():
     status = False
+    finishLabel.configure(text="")
+
     try:
         ytLink = link.get()
         ytObject = YouTube(ytLink)
@@ -13,7 +15,12 @@ def startDownload():
     except Exception as e:
         print("🫤 YouTube link is invalid", e)
 
-    print("😙 Download complete!") if status==True else print("")
+    if status==True:
+        finishLabel.configure(text="Download Complete!")
+        print("😙 Download complete!")
+    
+    else:
+        finishLabel.configure(text="Failed to download the video")
 
 # System Settings
 customtkinter.set_appearance_mode("System")
@@ -32,6 +39,10 @@ title.pack(padx=10, pady=10)
 url_var = tkinter.StringVar()
 link = customtkinter.CTkEntry(app, width=350, height=40, textvariable=url_var, text_color="#333")
 link.pack()
+
+# Finished downloading
+finishLabel = customtkinter.CTkLabel(app, text="")
+finishLabel.pack()
 
 # Download Button
 download = customtkinter.CTkButton(app, text="Download", command=startDownload)
